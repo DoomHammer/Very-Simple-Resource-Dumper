@@ -1,0 +1,23 @@
+# White spaces are ignored, so you can't have a file path with white spaces ;
+# Recognized characteres: abcdefghijklmnopqrstuvxzwyABCDEFGHIJKLMNOPQRSTUVXZWY0123456789/._- ;
+# Lines must end with ;
+
+# the default path is / ;
+# to declare a file: alias:file_path ;
+@ Text.txt : text.txt ;
+# this file will be accessible from C++ as /Text.txt;
+
+# declares a new path, from now on everything is inside /imgs ;
+# don't put a trailing /, it's already put by C++ ;
+! /imgs;
+# could also be !imgs; resulting in /imgs;
+
+@ Pen.png  : img/icon.png ;
+# This file will be accessible from C++ as /imgs/Pen.png ;
+
+# same as !/; ;
+!;
+@ ResourceFile:resources.crs;
+
+# commands inside comments get executed: @ShouldNotExist:file; will actually exist;
+# and it would be even worse if ; was not after file, because then it would be filewillactuallyexist;

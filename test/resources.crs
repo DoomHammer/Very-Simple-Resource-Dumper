@@ -1,0 +1,4 @@
+@ Text.txt : text.txt;
+
+! /imgs;
+@ Pen.png  : img/icon.png;

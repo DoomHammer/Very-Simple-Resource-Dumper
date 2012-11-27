@@ -1,0 +1,18 @@
+CXX = g++ -c
+CXXLN  = g++ -lstdc++
+CFLAGS = -O3
+OBJS = CmdLine.o Dumper.o Main.o Parser.o
+
+vsrd : $(OBJS)
+	$(CXXLN) $(OBJS) -o $@
+	
+%.o : %.cpp
+	$(CXX) $(CFLAGS) $?
+		
+all : vsrc
+
+clean:
+	rm *.o
+	
+distclean: clean
+	rm vsrd
