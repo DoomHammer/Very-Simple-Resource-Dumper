@@ -4,9 +4,6 @@
 #include <map>
 #include <string>
 
-class Parser {
-public:
-    static std::map<std::string,std::string> parse(const char* file);
-};
+std::map<std::string,std::string> parse(const char* file);
 
 #endif

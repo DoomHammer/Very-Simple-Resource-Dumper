@@ -11,49 +11,27 @@ std::string IntToStdString(unsigned long long n)
     return ss.str();
 }
 
-void Dumper::dumpHeader(const char* file)
+std::string toHEX(unsigned char c)
 {
-    std::ostream* out;
-    if ( strcmp(file, "stdout") == 0 ) {
-        out = &std::cout;
-    } else {
-        out = new std::ofstream(file, std::ios::out | std::ios::trunc);
-    }
+    char* hb = (char*) malloc( sizeof(char) * 3 );
     
-    *out << "#ifndef RESOURCES_H\n"
-            "#define RESOURCES_H\n\n"
-            "const char* getResource(const char* resource, unsigned long long *size);\n\n"
-            "#endif" << std::endl;
+    sprintf(hb, "%X", c);
     
-    if ( strcmp(file, "stdout") != 0 ) {
-        ((std::ofstream*)out)->close();
-        delete out;
-    }
+    std::string hex = "0x";
+    hex += strlen(hb) == 1 ? "0" : "";
+    hex += hb;
+    
+    free(hb);
+    
+    return hex;
 }
 
-Dumper::Dumper(const char* dst_file, std::map<std::string,std::string> files, std::string relative_path)
-{
-    dst.open(dst_file, std::ios::binary | std::ios::out );
-    if ( !dst.is_open() ) {
-        std::cout << "Could not open destination file." << std::endl;
-        exit(-1);
-    }
-    this->files = files;
-    this->relative_path = relative_path;
-}
-
-Dumper::~Dumper()
-{
-    dst.close();
-}
-
-void Dumper::fileDump(std::ifstream &src, std::ofstream &dst)
+void fileDump(std::ifstream &src, std::ofstream &dst)
 {
     int size = sizeof(char) * 1024 * 1024;
     int rsize = 0;
     char* buff = (char*) malloc( size );
     
-    char* hb = (char*) malloc( sizeof(char)*3 );
     std::string hex = "";
     int count = 1;
     while ( !src.eof() ) {
@@ -61,10 +39,7 @@ void Dumper::fileDump(std::ifstream &src, std::ofstream &dst)
         rsize = src.gcount();
         
         for(size_t i = 0; i < rsize; ++i) {
-            sprintf(hb, "%X", (unsigned char)buff[i]);
-            hex += "0x";
-            hex += strlen(hb) == 1 ? "0" : "";
-            hex += hb;
+            hex += toHEX( (unsigned char) buff[i] );
             hex += ", ";
             
             if ( count % 16 == 0 )
@@ -76,11 +51,26 @@ void Dumper::fileDump(std::ifstream &src, std::ofstream &dst)
     }
     
     free(buff);
-    free(hb);
 }
 
-void Dumper::dump()
+void dumpHeader(const char* file)
 {
+    std::ofstream out(file, std::ios::out | std::ios::trunc);
+    out << "#ifndef RESOURCES_H\n"
+            "#define RESOURCES_H\n\n"
+            "const char* getResource(const char* resource, unsigned long long *size);\n\n"
+            "#endif" << std::endl;
+    out.close();
+}
+
+void dumpC(const char* dst_file, std::map<std::string,std::string> files, std::string relative_path)
+{
+    std::ofstream dst(dst_file, std::ios::binary | std::ios::out );
+    if ( !dst.is_open() ) {
+        std::cout << "Could not open destination file." << std::endl;
+        exit(-1);
+    }
+    
     dst << "#include <string.h>\n\n";
     std::string retriever = "";
     
@@ -121,19 +111,6 @@ void Dumper::dump()
     dst << retriever;
     dst << "\t*size = 0;\n\treturn NULL;";
     dst << "\n}\n";
-}
-
-std::string Dumper::toHEX(unsigned char c)
-{
-    char* hb = (char*) malloc( sizeof(char) * 3 );
     
-    sprintf(hb, "%X", c);
-    
-    std::string hex = "0x";
-    hex += strlen(hb) == 1 ? "0" : "";
-    hex += hb;
-    
-    free(hb);
-    
-    return hex;
+    dst.close();
 }

@@ -13,19 +13,18 @@ int main (int argc, char const **argv)
     
     switch( cmdline.operation() ) {
         case DumpHeader:
-            Dumper::dumpHeader(cmdline.output());
+            dumpHeader(cmdline.output());
             break;
         
         case DumpResources:
             // [alias]=file
             std::map<std::string,std::string> files;
-            files = Parser::parse(cmdline.input());
+            files = parse(cmdline.input());
             
             std::string rp = cmdline.input();
             rp = rp.substr( 0, rp.find_last_of("/\\") );
             
-            Dumper dump(cmdline.output(), files, rp);
-            dump.dump();
+            dumpC(cmdline.output(), files, rp);
             break;
     }
     

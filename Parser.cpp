@@ -12,9 +12,9 @@ enum Command {
     C_COMMENT
 };
 
-std::map<std::string,std::string> Parser::parse(const char* file)
+std::map<std::string,std::string> parse(const char* file)
 {
-    if ( strcmp(file, "none") == 0 ) {
+    if ( strcmp(file, "") == 0 ) {
         std::cout << "No input file specified\n";
         exit(-1);
     }

@@ -6,14 +6,14 @@ CmdLine::CmdLine(int argc, const char** argv)
 {
     if ( argc == 1 ) {
         std::cout << "\nUsage: " << argv[0] << " [-t] [input_file] [-o output_file]\n" <<
-                     "\t-o         file to be writen to. WILL BE OVERRIDEN. If not given defaults to stdout\n" <<
+                     "\t-o         file to be writen to. WILL BE OVERRIDEN.\n" <<
                      "\t--header   create a header file to be used in your project.\n" <<
                      "\tinput_file resources definition file\n\n";
         exit(0);
     }
     
-    this->m_inputFile  = "none";
-    this->m_outputFile = "stdout";
+    this->m_inputFile  = "";
+    this->m_outputFile = "";
     this->m_operation  = DumpResources;
     
     const char* c;
@@ -36,5 +36,10 @@ CmdLine::CmdLine(int argc, const char** argv)
         }
         
         this->m_inputFile = c;
+    }
+    
+    if ( strcmp(m_outputFile, "") == 0 ) {
+        std::cout << "Specify an output file." << std::endl;
+        exit(-1);
     }
 }
