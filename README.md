@@ -27,3 +27,7 @@ The file describing the resources for this could look like:
     @ logo.png : path_to_file_in_disk/logo_file_name.png ;
     
 See the test folder for more info.
+
+The tool recurser.py can be used to traverse a directory
+The tool is meant to be called, without arguments, from the root the directory containing the resources
+It will generate a resources.src file containing all the files in all subdirectories using relative paths

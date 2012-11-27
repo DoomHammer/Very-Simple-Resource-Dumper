@@ -23,6 +23,8 @@ int main (int argc, char const **argv)
             
             std::string rp = cmdline.input();
             rp = rp.substr( 0, rp.find_last_of("/\\") );
+            if ( rp == cmdline.input() )
+                rp = ".";
             
             dumpC(cmdline.output(), files, rp);
             break;
