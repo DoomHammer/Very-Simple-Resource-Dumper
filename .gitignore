@@ -170,7 +170,6 @@ pip-log.txt
 moc_*.cpp
 qrc_*.cpp
 ui_*.h
-Makefile*
 
 # Qt User Project files
 *.pro.user

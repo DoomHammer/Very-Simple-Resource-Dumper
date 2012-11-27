@@ -1,0 +1,18 @@
+CXX = cl /c
+CXXLN  = link
+CFLAGS = /O2 /Og /Ot /EHsc
+OBJS = CmdLine.obj Dumper.obj Main.obj Parser.obj
+
+vsrd.exe : $(OBJS)
+	$(CXXLN) $(OBJS) /OUT:$@
+	
+%.obj : %.cpp
+	$(CXX) $(CFLAGS) $?
+	
+all : vsrc
+
+clean:
+	del *.obj
+	
+distclean: clean
+	del vsrd.exe
