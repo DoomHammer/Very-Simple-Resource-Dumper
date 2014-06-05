@@ -1,4 +1,7 @@
-﻿#include "CmdLine.h"
+#include "CmdLine.h"
+
+#include <stdlib.h>
+#include <string.h>
 
 #include <iostream>
 

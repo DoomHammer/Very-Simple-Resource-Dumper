@@ -1,4 +1,4 @@
-﻿#include "CmdLine.h"
+#include "CmdLine.h"
 #include "Dumper.h"
 #include "Parser.h"
 
