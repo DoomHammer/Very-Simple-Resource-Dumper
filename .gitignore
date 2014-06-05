@@ -186,3 +186,10 @@ Release/
 # Editors temporary files
 *~
 *.autosave
+
+
+#############
+## Linux
+#############
+
+vsrd

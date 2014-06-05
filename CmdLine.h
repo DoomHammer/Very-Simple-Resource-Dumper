@@ -1,4 +1,4 @@
-﻿#ifndef CMDLINE_H
+#ifndef CMDLINE_H
 #define CMDLINE_H
 
 enum Operation {
