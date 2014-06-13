@@ -2,7 +2,14 @@ language: cpp
 compiler:
   - gcc
   - clang
-script: if [ "$CXX" = "g++" ]; then make -f Makefile-gcc; else if [ "$CXX" = "clang++" ]; then make -f Makefile-clang; fi; fi
+script: make dist; mv vsrd*.tar.gz vsrd-Linux-x64.tar.gz
 os:
   - linux
   - osx
+deploy:
+  provider: releases
+  api-key: e3eafd5c7d8915ba6d1bc08d2dd513405ab20250
+  skip_cleanup: true
+  file: vsrd-Linux-x64.tar.gz
+  on:
+    tags: true
