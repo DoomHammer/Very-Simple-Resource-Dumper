@@ -67,7 +67,7 @@ void dumpHeader(const char *file)
     out.close();
 }
 
-void dumpC(const char *dst_file, std::map<std::string, std::string> files, std::string relative_path)
+void dumpC(const char *dst_file, std::map<std::string, std::string> files, std::string relative_path, bool is_static)
 {
     std::ofstream dst(dst_file, std::ios::binary | std::ios::out);
 
@@ -110,6 +110,11 @@ void dumpC(const char *dst_file, std::map<std::string, std::string> files, std::
 
         f.close();
         i++;
+    }
+
+    if (is_static)
+    {
+        dst << "static ";
     }
 
     dst << "const char* getResource(const char* resource, unsigned long long *size)\n{\n";

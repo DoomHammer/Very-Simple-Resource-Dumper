@@ -8,6 +8,7 @@ CmdLine::CmdLine(int argc, const char **argv)
         std::cout << "\nUsage: " << argv[0] << " [-t] [input_file] [-o output_file]\n" <<
             "\t-o         file to be writen to. WILL BE OVERRIDEN.\n" <<
             "\t--header   create a header file to be used in your project.\n" <<
+            "\t--static   make getResource static.\n" <<
             "\tinput_file resources definition file\n\n";
         exit(0);
     }
@@ -15,6 +16,7 @@ CmdLine::CmdLine(int argc, const char **argv)
     this->m_inputFile  = "";
     this->m_outputFile = "";
     this->m_operation  = DumpResources;
+    this->m_static = false;
 
     const char *c;
     for ( int i = 1; i < argc; ++i ) {
@@ -22,6 +24,11 @@ CmdLine::CmdLine(int argc, const char **argv)
 
         if ( strcmp(c, "--header") == 0 ) {
             this->m_operation = DumpHeader;
+            continue;
+        }
+
+        if ( strcmp(c, "--static") == 0 ) {
+            this->m_static = true;
             continue;
         }
 

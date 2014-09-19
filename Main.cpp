@@ -27,7 +27,7 @@ int main(int argc, char const **argv)
                 rp = ".";
             }
 
-            dumpC(cmdline.output(), files, rp);
+            dumpC(cmdline.output(), files, rp, cmdline.is_static());
             break;
     }
 
