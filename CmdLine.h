@@ -26,9 +26,15 @@ public:
         return m_operation;
     }
 
+    bool is_static() const
+    {
+        return m_static;
+    }
+
 protected:
     const char *m_inputFile;
     const char *m_outputFile;
     Operation  m_operation;
+    bool m_static;
 };
 #endif

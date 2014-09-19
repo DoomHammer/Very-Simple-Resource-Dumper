@@ -5,5 +5,5 @@
 #include <string>
 
 void dumpHeader(const char *file);
-void dumpC(const char *dst_file, std::map<std::string, std::string> files, std::string relative_path);
+void dumpC(const char *dst_file, std::map<std::string, std::string> files, std::string relative_path, bool is_static);
 #endif
