@@ -2,4 +2,5 @@ language: cpp
 compiler:
   - gcc
   - clang
+sudo: false
 script: cmake -DCMAKE_INSTALL_PREFIX=. && make && make install && tar czf vsrd-Linux-x64.tar.gz -C bin vsrd
