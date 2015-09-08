@@ -2,4 +2,5 @@ language: cpp
 compiler:
   - gcc
   - clang
-script: if [ "$CXX" = "g++" ]; then make -f Makefile-gcc; else if [ "$CXX" = "clang++" ]; then make -f Makefile-clang; fi; fi
+sudo: false
+script: cmake -DCMAKE_INSTALL_PREFIX=. && make && make install && tar czf vsrd-Linux-x64.tar.gz -C bin vsrd
